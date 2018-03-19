@@ -376,10 +376,11 @@ public class ReactVideoView extends ScalableVideoView implements MediaPlayer.OnP
     public void setRateModifier(final float rate) {
         mRate = rate;
 
-        if (mMediaPlayerValid) {
-            // TODO: Implement this.
-            Log.e(ReactVideoViewManager.REACT_CLASS, "Setting playback rate is not yet supported on Android");
+        if (!mMediaPlayerValid) {
+            return;
         }
+
+        mMediaPlayer.setPlaybackParams(mMediaPlayer.getPlaybackParams().setSpeed(rate));
     }
 
     public void applyModifiers() {
@@ -388,7 +389,7 @@ public class ReactVideoView extends ScalableVideoView implements MediaPlayer.OnP
         setPausedModifier(mPaused);
         setMutedModifier(mMuted);
         setProgressUpdateInterval(mProgressUpdateInterval);
-//        setRateModifier(mRate);
+        setRateModifier(mRate);
     }
 
     public void setPlayInBackground(final boolean playInBackground) {
