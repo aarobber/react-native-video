@@ -374,6 +374,11 @@ public class ReactVideoView extends ScalableVideoView implements MediaPlayer.OnP
     }
 
     public void setRateModifier(final float rate) {
+        if (Math.abs(mRate - rate) < 0.1) {
+            mRate = rate;
+            return;
+        }
+
         mRate = rate;
 
         if (!mMediaPlayerValid) {
